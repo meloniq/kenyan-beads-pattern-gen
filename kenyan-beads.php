@@ -24,8 +24,8 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'KBPG_PP_TD', 'kenyan-beads' );
-define( 'KBPG_PP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'KBPG_TD', 'kenyan-beads' );
+define( 'KBPG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 // Include the autoloader so we can dynamically include the rest of the classes.
 require_once trailingslashit( dirname( __FILE__ ) ) . 'vendor/autoload.php';
@@ -40,4 +40,18 @@ function setup() {
 
 	$kbpg_kenyan_beads['settings'] = new Settings();
 }
-add_action( 'after_setup_theme', 'Meloniq\KenyanBeads\setup' );
+add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
+
+/**
+ * Load WP-CLI command.
+ *
+ * @return void
+ */
+function load_wp_cli() {
+	if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
+		return;
+	}
+
+	\WP_CLI::add_command( 'kbpg', __NAMESPACE__ . '\WPCLI' );
+}
+add_action( 'init', __NAMESPACE__ . '\load_wp_cli' );

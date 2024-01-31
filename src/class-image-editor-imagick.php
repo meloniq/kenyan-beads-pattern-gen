@@ -15,7 +15,7 @@ class KBPG_Image_Editor_Imagick extends WP_Image_Editor_Imagick {
 	public function get_dominant_color() {
 
 		if ( ! $this->image ) {
-			return new WP_Error( 'image_editor_dominant_color_error_no_image', __( 'Dominant color detection no image found.', KBPG_PP_TD ) );
+			return new WP_Error( 'image_editor_dominant_color_error_no_image', __( 'Dominant color detection no image found.', KBPG_TD ) );
 		}
 
 		try {
@@ -26,13 +26,13 @@ class KBPG_Image_Editor_Imagick extends WP_Image_Editor_Imagick {
 			$color = $pixel->getColor();
 			$hex   = Utils::rgb_to_hex( array( $color['r'], $color['g'], $color['b'] ) );
 			if ( ! $hex ) {
-				return new WP_Error( 'image_editor_dominant_color_error', __( 'Dominant color detection failed.', KBPG_PP_TD ) );
+				return new WP_Error( 'image_editor_dominant_color_error', __( 'Dominant color detection failed.', KBPG_TD ) );
 			}
 
 			return $hex;
 		} catch ( Exception $e ) {
 			/* translators: %s is the error message. */
-			return new WP_Error( 'image_editor_dominant_color_error', sprintf( __( 'Dominant color detection failed: %s', KBPG_PP_TD ), $e->getMessage() ) );
+			return new WP_Error( 'image_editor_dominant_color_error', sprintf( __( 'Dominant color detection failed: %s', KBPG_TD ), $e->getMessage() ) );
 		}
 	}
 
@@ -45,7 +45,7 @@ class KBPG_Image_Editor_Imagick extends WP_Image_Editor_Imagick {
 	public function has_transparency() {
 
 		if ( ! $this->image ) {
-			return new WP_Error( 'image_editor_has_transparency_error_no_image', __( 'Transparency detection no image found.', KBPG_PP_TD ) );
+			return new WP_Error( 'image_editor_has_transparency_error_no_image', __( 'Transparency detection no image found.', KBPG_TD ) );
 		}
 
 		try {
@@ -77,7 +77,7 @@ class KBPG_Image_Editor_Imagick extends WP_Image_Editor_Imagick {
 
 		} catch ( Exception $e ) {
 			/* translators: %s is the error message */
-			return new WP_Error( 'image_editor_has_transparency_error', sprintf( __( 'Transparency detection failed: %s', KBPG_PP_TD ), $e->getMessage() ) );
+			return new WP_Error( 'image_editor_has_transparency_error', sprintf( __( 'Transparency detection failed: %s', KBPG_TD ), $e->getMessage() ) );
 		}
 	}
 }

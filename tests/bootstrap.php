@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'KBPG_PP_TD' ) ) {
-	define( 'KBPG_PP_TD', 'kenyan-beads' );
+if ( ! defined( 'KBPG_TD' ) ) {
+	define( 'KBPG_TD', 'kenyan-beads' );
 }
 
 // Load the composer autoloader to use WP Mock

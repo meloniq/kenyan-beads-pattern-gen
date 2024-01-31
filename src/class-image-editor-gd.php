@@ -15,7 +15,7 @@ class KBPG_Image_Editor_GD extends WP_Image_Editor_GD {
 	public function get_dominant_color() {
 
 		if ( ! $this->image ) {
-			return new WP_Error( 'image_editor_dominant_color_error_no_image', __( 'Dominant color detection no image found.', KBPG_PP_TD ) );
+			return new WP_Error( 'image_editor_dominant_color_error_no_image', __( 'Dominant color detection no image found.', KBPG_TD ) );
 		}
 		// The logic here is resize the image to 1x1 pixel, then get the color of that pixel.
 		$shorted_image = imagecreatetruecolor( 1, 1 );
@@ -27,7 +27,7 @@ class KBPG_Image_Editor_GD extends WP_Image_Editor_GD {
 		$b   = $rgb & 0xFF;
 		$hex = Utils::rgb_to_hex( array( $r, $g, $b ) );
 		if ( ! $hex ) {
-			return new WP_Error( 'image_editor_dominant_color_error', __( 'Dominant color detection failed.', KBPG_PP_TD ) );
+			return new WP_Error( 'image_editor_dominant_color_error', __( 'Dominant color detection failed.', KBPG_TD ) );
 		}
 
 		return $hex;
@@ -43,7 +43,7 @@ class KBPG_Image_Editor_GD extends WP_Image_Editor_GD {
 	public function has_transparency() {
 
 		if ( ! $this->image ) {
-			return new WP_Error( 'image_editor_has_transparency_error_no_image', __( 'Transparency detection no image found.', KBPG_PP_TD ) );
+			return new WP_Error( 'image_editor_has_transparency_error_no_image', __( 'Transparency detection no image found.', KBPG_TD ) );
 		}
 
 		// Walk through the pixels and look transparent pixels.
