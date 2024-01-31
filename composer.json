@@ -1,0 +1,20 @@
+{
+    "name": "meloniq/kenyan-beads",
+    "description": "Kenyan Beads Pattern Generator.",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Meloniq\\KenyanBeads\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "meloniq",
+            "email": "meloniq@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "10up/wp_mock": "^1.0"
+    }
+}
