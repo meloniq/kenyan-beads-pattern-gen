@@ -1,0 +1,63 @@
+.bead-scroll-container {
+	width: 1200px;
+	height: 550px;
+	overflow-x: auto;
+	overflow-y: auto;
+	white-space: nowrap;
+}
+
+.bead-container {
+	display: block;
+	padding: 30px;
+	/*transform: scale(.5);*/
+	height: max-content;
+	width: max-content;
+}
+
+.bead-line {
+	display: block;
+	height: 28px;
+}
+
+.bead {
+	display: inline-block;
+	width: 46px;
+	height: 46px;
+	margin: -6px;
+}
+
+.bead span {
+	display: inline-block;
+}
+
+.bead-row-odd.bead-line {
+	height: 46px;
+	margin-left: 18px;
+}
+
+.bead-row-even.bead-line {
+	height: 28px;
+}
+
+.bead-row-odd .bead-empty,
+.bead-row-even .bead-empty {
+	height: 28px;
+	width: 28px;
+}
+
+.bead-empty span {
+	height: 28px;
+	width: 28px;
+}
+
+.bead-horizontal span {
+	border-radius: 50%/75%;
+	height: 28px;
+	width: 46px;
+}
+
+.bead-vertical span {
+	border-radius: 75%/50%;
+	height: 46px;
+	width: 28px;
+}
