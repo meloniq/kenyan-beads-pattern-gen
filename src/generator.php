@@ -40,20 +40,34 @@ class Generator {
 	private $image_path = '';
 
 	/**
+	 * Color scheme.
+	 *
+	 * @var string
+	 */
+	private $color_scheme = 'full';
+
+	/**
 	 * Constructor.
 	 *
 	 * @param string $image_path Image path.
+	 * @param string $color_scheme Color scheme. Optional.
 	 *
 	 * @return void
 	 */
-	public function __construct( $image_path ) {
+	public function __construct( $image_path, $color_scheme = 'full' ) {
 		if ( ! file_exists( $image_path ) ) {
 			return;
+		}
+
+		$schemes = array( 'full', 'simplified', 'basic' );
+		if ( ! in_array( $color_scheme, $schemes, true ) ) {
+			$color_scheme = 'full';
 		}
 
 		$this->image_path      = $image_path;
 		$this->bead_qty_height = $this->calculate_bead_height();
 		$this->bead_qty_length = $this->calculate_bead_length();
+		$this->color_scheme    = $color_scheme;
 	}
 
 	/**
@@ -337,7 +351,11 @@ class Generator {
 			return '';
 		}
 
-		return Utils::hex_websafe( $hex );
+		if ( 'full' === $this->color_scheme ) {
+			return $hex;
+		}
+
+		return Utils::hex_websafe( $hex, $this->color_scheme );
 	}
 
 }

@@ -6,11 +6,11 @@ class Utils {
 	/**
 	 * Convert rgb to hex.
 	 *
-	 * @param array $rgb
+	 * @param array $rgb The color in RGB.
 	 *
 	 * @return string
 	 */
-	public static function rgb_to_hex( $rgb ) {
+	public static function rgb_to_hex( $rgb ) : string {
 		$range = range( 0, 255 );
 
 		$hex = '#';
@@ -29,11 +29,11 @@ class Utils {
 	/**
 	 * Convert hex to rgb.
 	 *
-	 * @param string $hex
+	 * @param string $hex The hex color.
 	 *
 	 * @return array
 	 */
-	public static function hex_to_rgb( $hex ) {
+	public static function hex_to_rgb( $hex ) : array {
 		$hex = str_replace( '#', '', $hex );
 		if ( strlen( $hex ) != 6 ) {
 			return array( 0, 0, 0 );
@@ -50,14 +50,15 @@ class Utils {
 	/**
 	 * Convert hex to websafe hex.
 	 *
-	 * @param string $hex
+	 * @param string $hex The hex color.
+	 * @param string $color_scheme 'simplified' or 'basic'
 	 *
 	 * @return string
 	 */
-	public static function hex_websafe( $hex ) {
+	public static function hex_websafe( $hex, $color_scheme = 'simplified' ) : string {
 		$rgb = self::hex_to_rgb( $hex );
 
-		$closest_color = self::get_closest_color( $rgb );
+		$closest_color = self::get_closest_color( $rgb, $color_scheme );
 
 		return $closest_color['hex'];
 	}
@@ -259,8 +260,8 @@ class Utils {
 	/**
 	 * Get color distance.
 	 *
-	 * @param array $rgb1
-	 * @param array $rgb2
+	 * @param array $rgb1 The first color in RGB.
+	 * @param array $rgb2 The second color in RGB.
 	 *
 	 * @return float
 	 */
@@ -278,13 +279,17 @@ class Utils {
 	/**
 	 * Get closest color.
 	 *
-	 * @param array $rgb_color
+	 * @param array $rgb_color The color in RGB.
+	 * @param string $color_scheme 'simplified' or 'basic'
 	 *
 	 * @return array
 	 */
-	public static function get_closest_color( $rgb_color ) : array {
-		//$palette = self::get_basic_color_palette();
-		$palette = self::get_simplified_color_palette();
+	public static function get_closest_color( $rgb_color, $color_scheme ) : array {
+		if ( 'basic' === $color_scheme ) {
+			$palette = self::get_basic_color_palette();
+		} else {
+			$palette = self::get_simplified_color_palette();
+		}
 
 		$closest_color = array(
 			'name' => 'black',
