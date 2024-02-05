@@ -337,7 +337,7 @@ class Generator {
 			return '';
 		}
 
-		return $hex;
+		return Utils::hex_websafe( $hex );
 	}
 
 }

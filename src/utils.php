@@ -270,7 +270,7 @@ class Utils {
 		$delta_b = $rgb1[2] - $rgb2[2];
 
 		$v1 = $delta_r * $delta_r + $delta_g * $delta_g + $delta_b * $delta_b;
-		$v2 = ( $delta_r * .299 )^2 + ( $delta_g * .587 )^2 + ( $delta_b * .114 )^2;
+		//$v2 = ( $delta_r * .299 )^2 + ( $delta_g * .587 )^2 + ( $delta_b * .114 )^2;
 
 		return sqrt( $v1 );
 	}
@@ -283,8 +283,8 @@ class Utils {
 	 * @return array
 	 */
 	public static function get_closest_color( $rgb_color ) : array {
-		$palette = self::get_basic_color_palette();
-		//$palette = self::get_simplified_color_palette();
+		//$palette = self::get_basic_color_palette();
+		$palette = self::get_simplified_color_palette();
 
 		$closest_color = array(
 			'name' => 'black',
