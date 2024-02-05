@@ -48,14 +48,47 @@ class Settings {
 	 * @return void
 	 */
 	public function render() {
-		$generator = new Generator();
+		$files = array(
+			'example-black-verdana.png',
+			'example-transparent-verdana.png',
+			'example-black-times.png',
+			'example-transparent-times.png',
+			'flag-poland.png',
+			'flag-sweden.png',
+			'flag-kenya.png',
+		);
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Kenyan Beads Pattern Generator', KBPG_TD ); ?></h1>
 			<p><?php esc_html_e( 'This plugin generates a Kenyan Beads pattern.', KBPG_TD ); ?></p>
-			<?php echo $generator->generate_example(); ?>
+			<?php
+			//echo $generator->generate_example();
+			foreach ( $files as $file_name ) {
+				$this->generate_example( $file_name );
+			}
+			?>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Generate example.
+	 *
+	 * @param string $file_name The file name.
+	 *
+	 * @return void
+	 */
+	public function generate_example( $file_name ) {
+		$image_path = KBPG_PLUGIN_DIR . 'assets/' . $file_name;
+		$image_url  = KBPG_PLUGIN_URL . 'assets/' . $file_name;
+		$generator  = new Generator( $image_path );
+		$bead_qty   = $generator->get_bead_qty();
+		$text       = __( 'Height: %1$d beads, Length: %2$d beads, File: %3$s', KBPG_TD )
+	?>
+		<p><?php printf( $text, $bead_qty['height'], $bead_qty['length'], $file_name ); ?></p>
+		<p><img src="<?php echo esc_url( $image_url ); ?>" /></p>
+	<?php
+		echo $generator->generate_pattern();
 	}
 
 }

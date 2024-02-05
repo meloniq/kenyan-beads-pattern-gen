@@ -26,6 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 define( 'KBPG_TD', 'kenyan-beads' );
 define( 'KBPG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'KBPG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 // Include the autoloader so we can dynamically include the rest of the classes.
 require_once trailingslashit( dirname( __FILE__ ) ) . 'vendor/autoload.php';

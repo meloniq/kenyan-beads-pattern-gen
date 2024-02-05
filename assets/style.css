@@ -1,14 +1,16 @@
 .bead-scroll-container {
+	/*
 	width: 1200px;
-	height: 550px;
+	height: 450px;
 	overflow-x: auto;
 	overflow-y: auto;
 	white-space: nowrap;
+	*/
 }
 
 .bead-container {
 	display: block;
-	padding: 30px;
+	padding: 5px;
 	/*transform: scale(.5);*/
 	height: max-content;
 	width: max-content;
@@ -16,14 +18,14 @@
 
 .bead-line {
 	display: block;
-	height: 28px;
+	height: 14px;
 }
 
 .bead {
 	display: inline-block;
-	width: 46px;
-	height: 46px;
-	margin: -6px;
+	width: 20px;
+	height: 20px;
+	margin: -2px;
 }
 
 .bead span {
@@ -31,33 +33,32 @@
 }
 
 .bead-row-odd.bead-line {
-	height: 46px;
-	margin-left: 18px;
+	margin-left: 6px;
 }
 
 .bead-row-even.bead-line {
-	height: 28px;
+	margin-left: 0px;
 }
 
 .bead-row-odd .bead-empty,
 .bead-row-even .bead-empty {
-	height: 28px;
-	width: 28px;
+	height: 16px;
+	width: 16px;
 }
 
 .bead-empty span {
-	height: 28px;
-	width: 28px;
+	height: 16px;
+	width: 16px;
 }
 
 .bead-horizontal span {
 	border-radius: 50%/75%;
-	height: 28px;
-	width: 46px;
+	height: 12px;
+	width: 20px;
 }
 
 .bead-vertical span {
 	border-radius: 75%/50%;
-	height: 46px;
-	width: 28px;
+	height: 20px;
+	width: 12px;
 }

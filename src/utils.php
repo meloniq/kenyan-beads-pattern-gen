@@ -57,15 +57,9 @@ class Utils {
 	public static function hex_websafe( $hex ) {
 		$rgb = self::hex_to_rgb( $hex );
 
-		$websafe_hex = '#';
-		foreach( $rgb as $val ) {
-			// round value
-			$val = ( round( $val/51 ) * 51 );
-			// convert to HEX
-			$websafe_hex .= str_pad( dechex( $val ), 2, '0', STR_PAD_LEFT );
-		}
+		$closest_color = self::get_closest_color( $rgb );
 
-		return $websafe_hex;
+		return $closest_color['hex'];
 	}
 
 	/**
@@ -141,5 +135,174 @@ class Utils {
 
 		return $dominant_color_data;
 	}
+
+	/**
+	 * Get simplified color palette.
+	 *
+	 * @return array
+	 */
+	public static function get_simplified_color_palette() : array {
+		$palette = array(
+			array(
+				'name' => 'white',
+				'hex'  => '#ffffff',
+				'rgb'  => array( 255, 255, 255 ),
+			),
+			array(
+				'name' => 'silver',
+				'hex'  => '#c0c0c0',
+				'rgb'  => array( 192, 192, 192 ),
+			),
+			array(
+				'name' => 'gray',
+				'hex'  => '#808080',
+				'rgb'  => array( 128, 128, 128 ),
+			),
+			array(
+				'name' => 'black',
+				'hex'  => '#000000',
+				'rgb'  => array( 0, 0, 0 ),
+			),
+			array(
+				'name' => 'red',
+				'hex'  => '#ff0000',
+				'rgb'  => array( 255, 0, 0 ),
+			),
+			array(
+				'name' => 'maroon',
+				'hex'  => '#800000',
+				'rgb'  => array( 128, 0, 0 ),
+			),
+			array(
+				'name' => 'yellow',
+				'hex'  => '#ffff00',
+				'rgb'  => array( 255, 255, 0 ),
+			),
+			array(
+				'name' => 'olive',
+				'hex'  => '#808000',
+				'rgb'  => array( 128, 128, 0 ),
+			),
+			array(
+				'name' => 'lime',
+				'hex'  => '#00ff00',
+				'rgb'  => array( 0, 255, 0 ),
+			),
+			array(
+				'name' => 'green',
+				'hex'  => '#008000',
+				'rgb'  => array( 0, 128, 0 ),
+			),
+			array(
+				'name' => 'aqua',
+				'hex'  => '#00ffff',
+				'rgb'  => array( 0, 255, 255 ),
+			),
+			array(
+				'name' => 'teal',
+				'hex'  => '#008080',
+				'rgb'  => array( 0, 128, 128 ),
+			),
+			array(
+				'name' => 'blue',
+				'hex'  => '#0000ff',
+				'rgb'  => array( 0, 0, 255 ),
+			),
+			array(
+				'name' => 'navy',
+				'hex'  => '#000080',
+				'rgb'  => array( 0, 0, 128 ),
+			),
+			array(
+				'name' => 'fuchsia',
+				'hex'  => '#ff00ff',
+				'rgb'  => array( 255, 0, 255 ),
+			),
+			array(
+				'name' => 'purple',
+				'hex'  => '#800080',
+				'rgb'  => array( 128, 0, 128 ),
+			),
+		);
+
+		return $palette;
+	}
+
+	/**
+	 * Get basic color palette.
+	 *
+	 * @return array
+	 */
+	public static function get_basic_color_palette() : array {
+		$basic_colors= array(
+			'white',
+			'black',
+			'red',
+			'yellow',
+			'green',
+			'blue',
+			'fuchsia',
+		);
+
+		$simplified_palette = self::get_simplified_color_palette();
+
+		$palette = array();
+		foreach ( $simplified_palette as $color ) {
+			if ( in_array( $color['name'], $basic_colors, true ) ) {
+				$palette[] = $color;
+			}
+		}
+
+		return $palette;
+	}
+
+	/**
+	 * Get color distance.
+	 *
+	 * @param array $rgb1
+	 * @param array $rgb2
+	 *
+	 * @return float
+	 */
+	public static function get_color_distance( $rgb1, $rgb2 ) : float {
+		$delta_r = $rgb1[0] - $rgb2[0];
+		$delta_g = $rgb1[1] - $rgb2[1];
+		$delta_b = $rgb1[2] - $rgb2[2];
+
+		$v1 = $delta_r * $delta_r + $delta_g * $delta_g + $delta_b * $delta_b;
+		$v2 = ( $delta_r * .299 )^2 + ( $delta_g * .587 )^2 + ( $delta_b * .114 )^2;
+
+		return sqrt( $v1 );
+	}
+
+	/**
+	 * Get closest color.
+	 *
+	 * @param array $rgb_color
+	 *
+	 * @return array
+	 */
+	public static function get_closest_color( $rgb_color ) : array {
+		$palette = self::get_basic_color_palette();
+		//$palette = self::get_simplified_color_palette();
+
+		$closest_color = array(
+			'name' => 'black',
+			'hex'  => '#000000',
+			'rgb'  => array( 0, 0, 0 ),
+		);
+
+		$min_distance = sqrt( 3 * 255 * 255 ); // 3 color channels, each 0-255
+		foreach ( $palette as $basic_color ) {
+			$distance = self::get_color_distance( $rgb_color, $basic_color['rgb'] );
+			if ( $distance < $min_distance ) {
+				$min_distance = $distance;
+				$closest_color = $basic_color;
+			}
+		}
+
+		return $closest_color;
+	}
+
 
 }
