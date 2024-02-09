@@ -5,7 +5,7 @@ use WP_Mock\Tools\TestCase;
 final class GeneratorTestCase extends TestCase {
 
 	public function setUp() : void {
-		$this->image_path = dirname( dirname( __FILE__ ) ) . '/assets/flag-poland.png';
+		$this->image_path = dirname( dirname( __FILE__ ) ) . '/assets/img/flag-poland.png';
 
 		parent::setUp();
 	}

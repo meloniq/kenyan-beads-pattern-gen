@@ -39,6 +39,7 @@ require_once trailingslashit( dirname( __FILE__ ) ) . 'vendor/autoload.php';
 function setup() {
 	global $kbpg_kenyan_beads;
 
+	$kbpg_kenyan_beads['frontend'] = new Frontend();
 	$kbpg_kenyan_beads['settings'] = new Settings();
 }
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );

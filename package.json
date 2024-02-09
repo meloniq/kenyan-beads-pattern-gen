@@ -1,0 +1,23 @@
+{
+	"name": "kenyan-beads-block",
+	"version": "1.0.0",
+	"description": "Kenyan Beads Pattern Generator Block.",
+	"author": "meloniq",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"format": "wp-scripts format ./src/blocks",
+		"lint:css": "wp-scripts lint-style ./src/blocks/*/*.scss",
+		"lint:js": "wp-scripts lint-js ./src/blocks",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^27.1.0"
+	},
+	"dependencies": {
+		"lodash": "^4.17.21"
+	}
+}

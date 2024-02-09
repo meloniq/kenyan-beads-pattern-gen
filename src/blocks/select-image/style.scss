@@ -1,0 +1,65 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ */
+
+.bead-scroll-container {
+	white-space: nowrap;
+}
+
+.bead-container {
+	display: block;
+	padding: 5px;
+	height: max-content;
+	width: max-content;
+
+	.bead-line {
+		display: block;
+		height: 14px;
+		margin-left: 0;
+	}
+
+	.bead-row-odd.bead-line {
+		margin-left: 6px;
+	}
+
+	.bead {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		margin: -2px;
+
+		span {
+			display: inline-block;
+		}
+	}
+
+	.bead-empty {
+		height: 16px;
+		width: 16px;
+
+		span {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
+	.bead-horizontal {
+
+		span {
+			border-radius: 50% / 75%;
+			height: 12px;
+			width: 20px;
+		}
+	}
+
+	.bead-vertical {
+
+		span {
+			border-radius: 75% / 50%;
+			height: 20px;
+			width: 12px;
+		}
+	}
+
+}

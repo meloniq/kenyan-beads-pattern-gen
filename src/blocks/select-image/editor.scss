@@ -1,0 +1,18 @@
+/**
+ * The following styles get applied inside the editor only.
+ */
+
+.editor-styles-wrapper .wp-block-meloniq-kenyan-beads-block-select-image .bead-scroll-container {
+	white-space: nowrap;
+
+	.bead-container {
+		height: 100%;
+		width: 100%;
+
+		.bead-line > div {
+			display: inline-block;
+			height: 14px;
+			width: 14px;
+		}
+	}
+}

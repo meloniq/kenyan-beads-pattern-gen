@@ -34,6 +34,10 @@ class Settings {
 	 * @return void
 	 */
 	public function admin_styles() {
+		if ( empty( $_GET['page'] ) || $_GET['page'] !== 'kenyan-beads' ) {
+			return;
+		}
+
 		wp_enqueue_style(
 			'kenyan-beads-admin',
 			KBPG_PLUGIN_URL . 'assets/style.css',
@@ -79,8 +83,8 @@ class Settings {
 	 * @return void
 	 */
 	public function generate_example( $file_name ) {
-		$image_path = KBPG_PLUGIN_DIR . 'assets/' . $file_name;
-		$image_url  = KBPG_PLUGIN_URL . 'assets/' . $file_name;
+		$image_path = KBPG_PLUGIN_DIR . 'assets/img/' . $file_name;
+		$image_url  = KBPG_PLUGIN_URL . 'assets/img/' . $file_name;
 		$generator  = new Generator( $image_path );
 		$bead_qty   = $generator->get_bead_qty();
 		$text       = __( 'Height: %1$d beads, Length: %2$d beads, File: %3$s', KBPG_TD )
