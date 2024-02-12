@@ -23,6 +23,7 @@ import {
 import { useDisabled } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
 import { forEach } from 'lodash';
+import { patternDataStore } from './store';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -83,7 +84,17 @@ export default function Edit( { attributes, setAttributes } ) {
 		},
 	];
 
-	const patternData = [
+	const patternData = useSelect(
+		( select ) => {
+			return select( patternDataStore ).getPatternData( {
+				id: attachmentId,
+				color: colorPalette,
+			} );
+		},
+		[ attachmentId, colorPalette ]
+	);
+
+	const patternDataMock = [
 		[
 			'<div class="bead bead-empty"><span></span></div>',
 			'<div class="bead bead-vertical"><span style="background-color: #000000"></span></div>',
@@ -157,27 +168,36 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...useBlockProps() }>{ beadsPattern() }</div>
+			<div { ...useBlockProps() }>{ beadsPatternHtml() }</div>
 		</>
 	);
 
-	function beadsPattern() {
+	function beadsPatternHtml() {
+		const wrapperStyles = getWrapperStyles();
+
+		if ( ! patternData || ! patternData.html ) {
+			return (
+				<div>
+					{ __( 'Loading', 'kenyan-beads' ) }
+				</div>
+			);
+		}
+
+		return (
+			<div
+				style={ wrapperStyles }
+				ref={ disabledRef }
+				dangerouslySetInnerHTML={ {
+					__html: patternData.html,
+				} }
+			></div>
+		);
+	}
+
+	function beadsPatternGen() {
 		const wrapperClassName = 'bead-container';
 		const scrollWrapperClassName = 'bead-scroll-container';
-
-		const wrapperStyles = {};
-		if ( paddingSize ) {
-			wrapperStyles.paddingTop = paddingSize.top;
-			wrapperStyles.paddingBottom = paddingSize.bottom;
-			wrapperStyles.paddingLeft = paddingSize.left;
-			wrapperStyles.paddingRight = paddingSize.right;
-		}
-		if ( marginSize ) {
-			wrapperStyles.marginTop = marginSize.top;
-			wrapperStyles.marginBottom = marginSize.bottom;
-			wrapperStyles.marginLeft = marginSize.left;
-			wrapperStyles.marginRight = marginSize.right;
-		}
+		const wrapperStyles = getWrapperStyles();
 
 		return (
 			<div className={ scrollWrapperClassName }>
@@ -187,12 +207,29 @@ export default function Edit( { attributes, setAttributes } ) {
 					ref={ disabledRef }
 				>
 					{ patternData &&
-						patternData.map( ( row, i ) => {
+						patternData.pattern.map( ( row, i ) => {
 							return beadsLine( row, i );
 						} ) }
 				</div>
 			</div>
 		);
+	}
+
+	function getWrapperStyles() {
+		const styles = {};
+		if ( paddingSize ) {
+			styles.paddingTop = paddingSize.top;
+			styles.paddingBottom = paddingSize.bottom;
+			styles.paddingLeft = paddingSize.left;
+			styles.paddingRight = paddingSize.right;
+		}
+		if ( marginSize ) {
+			styles.marginTop = marginSize.top;
+			styles.marginBottom = marginSize.bottom;
+			styles.marginLeft = marginSize.left;
+			styles.marginRight = marginSize.right;
+		}
+		return styles;
 	}
 
 	function beadsLine( patternDataRow, i ) {

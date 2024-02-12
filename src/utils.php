@@ -309,5 +309,44 @@ class Utils {
 		return $closest_color;
 	}
 
+	/**
+	 * Get image path.
+	 *
+	 * @param int $attachment_id The attachment ID.
+	 *
+	 * @return string
+	 */
+	public static function get_image_path( $attachment_id ) {
+		$metadata = wp_get_attachment_metadata( $attachment_id );
+		if ( ! $metadata ) {
+			return '';
+		}
+
+		$upload_dir = wp_get_upload_dir();
+		$image_file = path_join( dirname( $metadata['file'] ), $metadata['sizes']['medium']['file'] );
+		$image_path = trailingslashit( $upload_dir['basedir'] ) . $image_file;
+
+		return $image_path;
+	}
+
+	/**
+	 * Get image URL.
+	 *
+	 * @param int $attachment_id The attachment ID.
+	 *
+	 * @return string
+	 */
+	public static function get_image_url( $attachment_id ) {
+		$metadata = wp_get_attachment_metadata( $attachment_id );
+		if ( ! $metadata ) {
+			return '';
+		}
+
+		$upload_dir = wp_get_upload_dir();
+		$image_file = path_join( dirname( $metadata['file'] ), $metadata['sizes']['medium']['file'] );
+		$image_url  = trailingslashit( $upload_dir['baseurl'] ) . $image_file;
+
+		return $image_url;
+	}
 
 }

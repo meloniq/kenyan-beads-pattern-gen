@@ -45,7 +45,7 @@ class Frontend {
 			return '';
 		}
 
-		$image_path = $this->get_image_path( $image_id );
+		$image_path = Utils::get_image_path( $image_id );
 		if ( ! $image_path ) {
 			return '';
 		}
@@ -56,7 +56,7 @@ class Frontend {
 
 		$html = '<p>' . sprintf( $text, $bead_qty['height'], $bead_qty['length'] ) . '</p>';
 
-		$image_url = $this->get_image_url( $image_id );
+		$image_url = Utils::get_image_url( $image_id );
 		if ( $image_url ) {
 			$html .= sprintf( '<p><img src="%s" /></p>', esc_url( $image_url ) );
 		}
@@ -65,47 +65,5 @@ class Frontend {
 
 		return $html;
 	}
-
-	/**
-	 * Get image path.
-	 *
-	 * @param int $attachment_id The attachment ID.
-	 *
-	 * @return string
-	 */
-	public function get_image_path( $attachment_id ) {
-		$metadata = wp_get_attachment_metadata( $attachment_id );
-		if ( ! $metadata ) {
-			return '';
-		}
-
-		$upload_dir = wp_get_upload_dir();
-		$image_file = path_join( dirname( $metadata['file'] ), $metadata['sizes']['medium']['file'] );
-		$image_path = trailingslashit( $upload_dir['basedir'] ) . $image_file;
-
-		return $image_path;
-	}
-
-	/**
-	 * Get image URL.
-	 *
-	 * @param int $attachment_id The attachment ID.
-	 *
-	 * @return string
-	 */
-	public function get_image_url( $attachment_id ) {
-		$metadata = wp_get_attachment_metadata( $attachment_id );
-		if ( ! $metadata ) {
-			return '';
-		}
-
-		$upload_dir = wp_get_upload_dir();
-		$image_file = path_join( dirname( $metadata['file'] ), $metadata['sizes']['medium']['file'] );
-		$image_url  = trailingslashit( $upload_dir['baseurl'] ) . $image_file;
-
-		return $image_url;
-	}
-
-
 
 }

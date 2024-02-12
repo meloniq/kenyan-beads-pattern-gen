@@ -41,6 +41,7 @@ function setup() {
 
 	$kbpg_kenyan_beads['frontend'] = new Frontend();
 	$kbpg_kenyan_beads['settings'] = new Settings();
+	$kbpg_kenyan_beads['rest']     = new Rest();
 }
 add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
 
